@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fetchTrending } from '../../services/api';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
+import {
+  ContainerHome,
+  ItemMovies,
+  LinkMovies,
+  ListMovies,
+  Title,
+} from './Home.styled';
 
 // const BASE_URL = 'https://api.themoviedb.org/3';
 // const KEY = 'ab7e82ec9455b58954116ec4a812321e';
@@ -25,20 +33,23 @@ const Home = () => {
   // }, []);
 
   return (
-    <main>
-      <div>
-        <h2>Trending today</h2>
-        <ul>
-          {movies.map(({ title, name, id }) => (
-            <li key={id}>
-              <Link to={`/movies/${id}`} state={{ from: location }}>
-                {title || name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </main>
+    <ContainerHome>
+      <Title>Trending today</Title>
+
+      <ListMovies>
+        {movies.map(({ title, name, id }) => (
+          <ItemMovies key={id}>
+            <LinkMovies
+              // style={{ textDecoration: 'none', color: '#804216' }}
+              to={`/movies/${id}`}
+              state={{ from: location }}
+            >
+              {title || name}
+            </LinkMovies>
+          </ItemMovies>
+        ))}
+      </ListMovies>
+    </ContainerHome>
   );
 };
 
