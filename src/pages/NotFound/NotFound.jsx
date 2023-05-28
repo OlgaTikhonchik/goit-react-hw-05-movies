@@ -1,8 +1,12 @@
+import { TextNotFound, TitleNotFound } from './NotFound.styled';
+
 const NotFound = () => {
   return (
     <div>
-      <h1> Page not found </h1>
-      <p>Please, return to the home page. And try to enter a new movie</p>
+      <TitleNotFound> Page not found </TitleNotFound>
+      <TextNotFound>
+        Please, return to the home page. And try to enter a new movie!
+      </TextNotFound>
     </div>
   );
 };
