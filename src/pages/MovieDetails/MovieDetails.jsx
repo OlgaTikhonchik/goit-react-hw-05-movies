@@ -1,7 +1,20 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchMoviesDetails } from '../../services/api';
+import {
+  ButtonBack,
+  ContainerDetails,
+  ContainerInfo,
+  Img,
+  ItemInfo,
+  LinkInfo,
+  Span,
+  SpanGenres,
+  Text,
+  TitleInfo,
+} from './MoviedDetails.styled';
+import { ListMovies } from 'pages/Home/Home.styled';
 
 // const BASE_URL = 'https://api.themoviedb.org/3';
 // const KEY = 'ab7e82ec9455b58954116ec4a812321e';
@@ -35,44 +48,44 @@ const MovieDetails = () => {
   const { title, overview, genres, poster_path, name, vote_average } =
     movieDetails;
   return (
-    <main>
-      <Link to={backLinkHref}>Back to movie</Link>
-      <div>
-        <img src={posterURL(poster_path)} alt="" />
-        <div>
-          <h1>{title || name}</h1>
-          <p>User score: {vote_average}%</p>
-          <p>Overview </p>
-          <span> {overview}</span>
+    <>
+      <ButtonBack to={backLinkHref}>Back to movie</ButtonBack>
+      <ContainerDetails>
+        <Img src={posterURL(poster_path)} alt="" />
+        <ContainerInfo>
+          <TitleInfo>{title || name}</TitleInfo>
+          <Text>User score: {vote_average}%</Text>
+          <Text>Overview </Text>
+          <Span> {overview}</Span>
 
-          <p>Genres</p>
+          <Text>Genres</Text>
           {genres?.map(({ id, name }) => (
-            <span key={id}>{name}</span>
+            <SpanGenres key={id}>{name}</SpanGenres>
           ))}
-        </div>
-      </div>
+        </ContainerInfo>
+      </ContainerDetails>
       <div>
         <h2>Additional information</h2>
         <hr />
-        <ul>
-          <li>
-            <Link to="cast" state={{ ...location.state }}>
+        <ListMovies>
+          <ItemInfo>
+            <LinkInfo to="cast" state={{ ...location.state }}>
               Cast
-            </Link>
-          </li>
-          <li>
-            <Link to="reviews" state={{ ...location.state }}>
+            </LinkInfo>
+          </ItemInfo>
+          <ItemInfo>
+            <LinkInfo to="reviews" state={{ ...location.state }}>
               Reviews
-            </Link>
-          </li>
-        </ul>
+            </LinkInfo>
+          </ItemInfo>
+        </ListMovies>
       </div>
       <hr />
 
       <Suspense fallback={<div>Loading movie info...</div>}>
         <Outlet />
       </Suspense>
-    </main>
+    </>
   );
 };
 
